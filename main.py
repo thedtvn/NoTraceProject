@@ -56,11 +56,8 @@ class Bot(discord.Client):
         if not channel:
             await orm_obj.delete()
             return
-        message = await channel.fetch_message(orm_obj.mess_id)
-        if not message:
-            await orm_obj.delete()
-            return
         try:
+            message = await channel.fetch_message(orm_obj.mess_id)
             await message.delete()
         except discord.NotFound or discord.Forbidden:
             pass
